@@ -4,19 +4,18 @@
 ############################ 2. workspace and functions ##############################
 script.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
 setwd(script.dir) # workspace 
-loc<-".\\Model_Input\\"
 print(script.dir)
 
 #Sys.setlocale('LC_ALL','German')  #active this whe you have "Error in gsub("\"", qstring, col.names, fixed = TRUE)"
 ################## 4. Read in parameters ##########################
-para<-read.csv(paste(script.dir, "Model_Param/parameters.csv", sep = "/"))   #read in parameter
+para<-read.csv(paste(script.dir, "/parameters.csv", sep = "/"))   #read in parameter
 
 if (ncol(para)!=4 |nrow(para)!=1 ){
   message("Please check Parameter input")} #check data structure
 
 ################## 5. Read in data set ##########################
 ##Read-in files
-data_peak<-read.csv(paste(script.dir, "Model_Input/data_peak.csv", sep = "/"))   #read in parameter
+data_peak<-read.csv(paste(script.dir, "/data_peak.csv", sep = "/"))   #read in parameter
 # Sorting on reference column
 data_peak_sorted <- data_peak[order(data_peak$reference), ]
 #count ref samples
@@ -78,4 +77,5 @@ cc.frame<-rbind(cc.frame,Extent_similarity)
 rownames(cc.frame)<-c("Cosine","Pearson","Euclidean_distance","Extent_similarity") #rename columns
 colnames(cc.frame)<-c("median",data_peak_sorted$name)
 ################## 10. export########################## 
-write.csv(cc.frame, file = "./Model_Output/similarity.csv") #export similarity
+write.csv(cc.frame, file = "./similarity.csv") #export similarity
+
